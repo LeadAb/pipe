@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-                create -f pod.yml
+                sh 'create -f pod.yml'
             }
         }
     }
