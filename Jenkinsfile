@@ -1,4 +1,4 @@
-stage {
+stage ('deploy to k8s'){
   agent {
     dockerfile {
       filename 'Dockerfile'
