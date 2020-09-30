@@ -1,15 +1,11 @@
-pipeline {
-    agent {
-        docker {
-        image 'bitnami/kubectl:latest'
-        args '-v /root/.kube/config:/.kube/config'
-        }
+stage {
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+      reuseNode true // <- this is if you need to access the workspace
     }
-    stages {
-        stage('deploy') {
-            steps {
-                sh 'create -f pod.yml'
-            }
-        }
-    }
+  }
+  steps {
+    sh "create -f pod.yml"
+  }
 }
