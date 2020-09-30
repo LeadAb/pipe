@@ -1,15 +1,11 @@
 pipeline {
-    agent {
-        dockerfile {
-         filename 'Dockerfile'
-         reuseNode true // <- this is if you need to access the workspace
-         args '-v /root/.kube/config:/.kube/config'
-        }
-    }
+    agent any
     stages {
-        stage('deploy') {
+        stage('build') {
             steps {
-                sh 'create -f pod.yml'
+                sh 'docker login -u abdel2020 -p ${pass}'
+                sh 'docker build . -t registry.gitlab.com/latestg1/jenkins'
+                sh 'docker push registry.gitlab.com/latestg1/jenkins'
             }
         }
     }
