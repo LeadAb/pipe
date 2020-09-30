@@ -1,14 +1,14 @@
 pipeline {
     agent {
         docker {
-        image 'bitnami/kubectl:1.19.2'
-        args '-v /root/.kube/config:/.kube/config'
+        image 'bitnami/kubectl:latest'
+        args '-v /root/.kube/config:/.kube/config -v $PWD:/tmp'
         }
     }
     stages {
         stage('deploy') {
             steps {
-                sh 'kubectl create -f .'
+                sh 'kubectl create -f /tmp/pod.yml'
             }
         }
     }
